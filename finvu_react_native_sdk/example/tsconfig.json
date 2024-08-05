@@ -1,0 +1,10 @@
+{
+  "extends": "expo/tsconfig.base",
+  "compilerOptions": {
+    "strict": true,
+    "paths": {
+      "com.finvu.rn": ["../src/index"],
+      "com.finvu.rn/*": ["../src/*"]
+    }
+  }
+}
