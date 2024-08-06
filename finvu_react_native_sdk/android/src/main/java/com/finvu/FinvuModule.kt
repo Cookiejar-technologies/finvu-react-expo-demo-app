@@ -9,7 +9,6 @@ import expo.modules.kotlin.modules.Module
 import expo.modules.kotlin.modules.ModuleDefinition
 class FinvuModule : Module() {
 
-  // Data class to hold configuration
   data class FinvuClientConfig(
     override val finvuEndpoint: String,
     override val certificatePins: List<String>?
@@ -66,7 +65,6 @@ class FinvuModule : Module() {
             if (result.isSuccess) {
               val reference = result.getOrNull()?.reference
               promise.resolve(mapOf("reference" to reference))
-//              sendEvent("onLoginOtpReceived", mapOf("reference" to reference))
             } else {
               val exception = result.exceptionOrNull() as? FinvuException
               val errorCode = exception?.code ?: "UNKNOWN_ERROR"
@@ -83,19 +81,14 @@ class FinvuModule : Module() {
 
     AsyncFunction("verifyLoginOtp") { otp: String, otpReference: String, promise: Promise ->
       try {
-//        val otp = data["otp"] as? String ?: throw IllegalArgumentException()
-//        val otpReference = data["otpReference"] as? String ?: throw IllegalArgumentException()
-
         sdkInstance.verifyLoginOtp(otp, otpReference) { result ->
             if (result.isSuccess) {
               val userId = result.getOrNull()?.userId
               promise.resolve(mapOf("userId" to userId))
-//              sendEvent("onLoginOtpVerified", mapOf("userId" to userId))
             } else {
               val exception = result.exceptionOrNull() as? FinvuException
               val errorCode = exception?.code ?: "UNKNOWN_ERROR"
               promise.reject(errorCode.toString(), exception?.message,null)
-//              sendEvent("onLoginOtpVerified", mapOf("status" to errorCode))
               throw RuntimeException(errorCode.toString())
             }
         }
