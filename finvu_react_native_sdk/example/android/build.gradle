@@ -33,10 +33,13 @@ allprojects {
             // Android JSC is installed from npm
             url(new File(['node', '--print', "require.resolve('jsc-android/package.json', { paths: [require.resolve('react-native/package.json')] })"].execute(null, rootDir).text.trim(), '../dist'))
         }
-        flatDir {
-            dirs '/Users/yashwantg/AndroidStudioProjects/finvu-mobile/finvu_android_sdk/core/build/outputs/aar/', "/Users/yashwantg/AndroidStudioProjects/finvu-mobile/finvu_android_sdk/client/build/outputs/aar/"
+        maven {
+            url 'https://maven.pkg.github.com/Cookiejar-technologies/finvu_flutter_sdk'
+            credentials {
+                username = "yashwantGehlot"
+                password = "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"
+            }
         }
-
         google()
         mavenCentral()
         maven { url 'https://www.jitpack.io' }

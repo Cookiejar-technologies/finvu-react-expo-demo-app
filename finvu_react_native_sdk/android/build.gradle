@@ -53,10 +53,6 @@ allprojects {
       // Android JSC is installed from npm
       url(new File(['node', '--print', "require.resolve('jsc-android/package.json', { paths: [require.resolve('react-native/package.json')] })"].execute(null, rootDir).text.trim(), '../dist'))
     }
-    flatDir {
-      dirs '/Users/yashwantg/AndroidStudioProjects/finvu-mobile/finvu_android_sdk/core/build/outputs/aar/', "/Users/yashwantg/AndroidStudioProjects/finvu-mobile/finvu_android_sdk/client/build/outputs/aar/"
-    }
-
     google()
     mavenCentral()
     maven { url 'https://www.jitpack.io' }
@@ -66,7 +62,7 @@ allprojects {
 dependencies {
   implementation fileTree(dir: 'libs', include: ['*.jar'])
   implementation("com.google.code.gson:gson:2.10.1")
-  implementation(name: 'core-debug', ext: 'aar')
-  implementation(name: 'client-debug', ext: 'aar')
+  implementation("com.finvu.android:client:1.0.0")
+  implementation("com.finvu.android:core:1.0.0")
 
 }
