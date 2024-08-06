@@ -17,119 +17,119 @@ This repository contains a demo app to demonstrate integrating the Finvu SDKs (i
 npx create-expo-module module-name
 ```
 2. Android setup
-a. Android, in project level build.gradle we add this:
-```
-maven {
-    url 'https://maven.pkg.github.com/Cookiejar-technologies/finvu_flutter_sdk'
-    credentials {
-        username = "USER_NAME"
-        password = "USER_TOKEN"
-    }
-}
-```
-b. in app level build.gradle we add:
-```
-implementation("com.finvu.android:client:1.0.0")
-implementation("com.finvu.android:core:1.0.0")
-```
+    1. Android, in project level build.gradle we add this:
+        ```sh
+        maven {
+            url 'https://maven.pkg.github.com/Cookiejar-technologies/finvu_flutter_sdk'
+            credentials {
+                username = "USER_NAME"
+                password = "USER_TOKEN"
+            }
+        }
+        ```
+    2. in app level build.gradle we add:
+        ```sh
+        implementation("com.finvu.android:client:1.0.0")
+        implementation("com.finvu.android:core:1.0.0")
+        ```
  
 3. iOS setup
-    a. Similarly now for iOS in PodFile add this:
-        ```
+    1. Similarly now for iOS in PodFile add this:
+        ```sh
         pod 'FinvuSDK' , :git => 'https://github.com/Cookiejar-technologies/finvu_ios_sdk.git'
         ```
 
-    b. Now in Finvu.podspec add this line:
-        ```
-          s.dependency 'FinvuSDK'
+    2. Now in Finvu.podspec add this line:
+        ```sh
+        s.dependency 'FinvuSDK'
         ```
 
-    c. install pods in ios directory 
-        ```
+    3. install pods in ios directory 
+        ```sh
         pod install
         ```
 4. React Native Bridge
-    a. In React Native code add this files if not already- index.ts:
-    ```
-    import { EventEmitter, NativeModulesProxy, Subscription } from 'expo-modules-core';
-    import FinvuModule from './FinvuModule';
-    import { FinvuConfig } from './Finvu.types';
-    
-    export async function initializeWith(config: FinvuConfig) {
-      try {
-        console.log('Result inside before calling initializeWith');
-        await FinvuModule.initializeWith(config);
-        console.log('Initialized successfully');
-      } catch (e) {
-        console.error(e);
-      }
-    }
-    
-    export async function connect() {
-      try {
-        console.log('Result inside before calling connect');
-        const result = await FinvuModule.connect();
-        console.log('Result inside: ' + result);
-        return result;
-      } catch (e) {
-        console.error(e);
-      }
-    }
-    
-    export async function loginWithUsernameOrMobileNumber(username: string, mobileNumber: string, consentHandleId: string) {
-      try {
-        console.log('Calling login');
-        const result = await FinvuModule.loginWithUsernameOrMobileNumber(username, mobileNumber, consentHandleId);
-        console.log('Logged Request: ' + result.reference);
-        return result;
-      } catch (e) {
-        console.error(e);
-      }
-    }
-    
-    export async function verifyLoginOtp(otp: string, otpReference: string) {
-      try {
-        console.log('Calling verify');
-        const result = await FinvuModule.verifyLoginOtp(otp, otpReference);
-        console.log('Logged In with userId : ' + result.userId);
-        return result;
-      } catch (e) {
-        console.error(e);
-      }
-    }
-    
-    const emitter = new EventEmitter(FinvuModule ?? NativeModulesProxy.Finvu);
-    
-    export function addChangeListener(listener: (event: any) => void): Subscription {
-      return emitter.addListener('onChange', listener);
-    }
-    ```
-    b. Finvu.Types.ts:
-    ```
-    export type ChangeEventPayload = {
-      value: string;
-    };
-    
-    export type FinvuViewProps = {
-      name: string;
-    };
-    
-    export type FinvuConfig ={
-      finvuEndpoint: string;
-      certificatePins?: string[];
-    }
-    ```
-    c. FinvuModule.ts:
-    ```
-    import { requireNativeModule } from 'expo-modules-core';
-    
-    // It loads the native module object from the JSI or falls back to
-    // the bridge module (from NativeModulesProxy) if the remote debugger is on.
-    export default requireNativeModule('Finvu');
-    ```
+    1. In React Native code add this files if not already- index.ts:
+        ```sh
+        import { EventEmitter, NativeModulesProxy, Subscription } from 'expo-modules-core';
+        import FinvuModule from './FinvuModule';
+        import { FinvuConfig } from './Finvu.types';
+        
+        export async function initializeWith(config: FinvuConfig) {
+          try {
+            console.log('Result inside before calling initializeWith');
+            await FinvuModule.initializeWith(config);
+            console.log('Initialized successfully');
+          } catch (e) {
+            console.error(e);
+          }
+        }
+        
+        export async function connect() {
+          try {
+            console.log('Result inside before calling connect');
+            const result = await FinvuModule.connect();
+            console.log('Result inside: ' + result);
+            return result;
+          } catch (e) {
+            console.error(e);
+          }
+        }
+        
+        export async function loginWithUsernameOrMobileNumber(username: string, mobileNumber: string, consentHandleId: string) {
+          try {
+            console.log('Calling login');
+            const result = await FinvuModule.loginWithUsernameOrMobileNumber(username, mobileNumber, consentHandleId);
+            console.log('Logged Request: ' + result.reference);
+            return result;
+          } catch (e) {
+            console.error(e);
+          }
+        }
+        
+        export async function verifyLoginOtp(otp: string, otpReference: string) {
+          try {
+            console.log('Calling verify');
+            const result = await FinvuModule.verifyLoginOtp(otp, otpReference);
+            console.log('Logged In with userId : ' + result.userId);
+            return result;
+          } catch (e) {
+            console.error(e);
+          }
+        }
+        
+        const emitter = new EventEmitter(FinvuModule ?? NativeModulesProxy.Finvu);
+        
+        export function addChangeListener(listener: (event: any) => void): Subscription {
+          return emitter.addListener('onChange', listener);
+        }
+        ```
+    2. Finvu.Types.ts:
+        ```sh
+        export type ChangeEventPayload = {
+          value: string;
+        };
+        
+        export type FinvuViewProps = {
+          name: string;
+        };
+        
+        export type FinvuConfig ={
+          finvuEndpoint: string;
+          certificatePins?: string[];
+        }
+        ```
+    3. FinvuModule.ts:
+        ```sh
+        import { requireNativeModule } from 'expo-modules-core';
+        
+        // It loads the native module object from the JSI or falls back to
+        // the bridge module (from NativeModulesProxy) if the remote debugger is on.
+        export default requireNativeModule('Finvu');
+        ```
 
 5. In Android package we have module file with name mentioned when creating module (For example: FinvuModule.kt):
-    ```
+    ```sh
     class FinvuModule : Module() {
     
       data class FinvuClientConfig(
@@ -224,7 +224,7 @@ implementation("com.finvu.android:core:1.0.0")
     }
     ```
 6. similarly with same module name (For example: FinvuModule.swift) add the below code:
-    ```
+    ```sh
     import ExpoModulesCore
     import FinvuSDK
     
@@ -344,12 +344,12 @@ implementation("com.finvu.android:core:1.0.0")
     }
     ```
 7. Now run pod install in ios directory.
-    ```
+    ```sh
     cd ios
     pod install
     ```
 8. Run the app with:
-    ```
+    ```sh
     npx expo run:android //for android
     npx expo run:ios //for ios
     ```
