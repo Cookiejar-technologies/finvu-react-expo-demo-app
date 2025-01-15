@@ -44,8 +44,8 @@ import { hello } from './modules/finvu';
         ```
     2. In `modules/finvu/android/build.gradle` we add:
         ```sh
-        implementation("com.finvu.android:client:1.0.1")
-        implementation("com.finvu.android:core:1.0.1")
+        implementation("com.finvu.android:client-sdk:1.0.1")
+        implementation("com.finvu.android:core-sdk:1.0.1")
         ```
  
 3. iOS setup
