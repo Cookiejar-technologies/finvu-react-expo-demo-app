@@ -35,7 +35,7 @@ import { hello } from './modules/finvu';
     1. Our Android SDK binaries are hosted as github packages that are accessible publicly. Add the following repository to your project level `build.gradle` file. Note that you need to provide some github credentials. [Check here](https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/managing-your-personal-access-tokens#creating-a-personal-access-token-classic) on steps to create `USER_PAT`
         ```
         maven {
-            url 'https://maven.pkg.github.com/Cookiejar-technologies/finvu_flutter_sdk'
+            url 'https://maven.pkg.github.com/Cookiejar-technologies/finvu_android_sdk'
             credentials {
                 username = "USER_NAME"
                 password = "USER_PAT" 
